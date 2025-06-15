@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>소개팅 메인화면</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      margin: 0;
+      background-color: #fff8f3;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff2ea;
+      padding: 15px 30px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .nav-left {
+      font-size: 24px;
+      font-weight: bold;
+      color: #d66b42;
+    }
+
+    .nav-center {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-grow: 1;
+    }
+
+    .nav-center button,
+    .nav-right button {
+      background-color: #f8a88d;
+      color: white;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .nav-center button:hover,
+    .nav-right button:hover {
+      background-color: #f58c73;
+    }
+
+    .nav-right {
+      padding-right: 10px;
+    }
+
+    .wrapper {
+      display: flex;
+      padding: 40px;
+    }
+
+    .profile-box {
+      width: 250px;
+      background: #fff2ea;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+      margin-right: 40px;
+      height: fit-content;
+    }
+
+    .profile-image-placeholder {
+      width: 100%;
+      height: 250px;
+      background-color: #ffece2;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #d66b42;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .profile-box img {
+      width: 100%;
+      border-radius: 15px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .field {
+      margin: 10px 0;
+    }
+
+    .label {
+      font-weight: bold;
+      display: inline-block;
+      width: 80px;
+    }
+
+    .main-image {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .carousel {
+      position: relative;
+      height: 400px;
+      width: 800px;
+      max-width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .carousel img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 20px;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+    }
+
+    .carousel img.active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .carousel button.prev,
+    .carousel button.next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(248, 168, 141, 0.8);
+      border: none;
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      z-index: 2;
+    }
+
+    .carousel button.prev {
+      left: 10px;
+    }
+
+    .carousel button.next {
+      right: 10px;
+    }
+
+    .slide-caption {
+      position: absolute;
+      top: 10px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      background: rgba(0, 0, 0, 0.2);
+      padding: 8px 0;
+      z-index: 2;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+
+    #profileUpload {
+      width: 100%;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 메뉴바 -->
+  <nav>
+    <div class="nav-left" onclick="location.href='profile.html'" style="cursor: pointer;">한성연애</div>
+    <div class="nav-center">
+      <button onclick="location.href='profile.html'">마이페이지</button>
+      <button onclick="location.href='index.html'">매칭</button>
+      <button onclick="location.href='chat.html'">채팅</button>
+    </div>
+    <div class="nav-right">
+      <button onclick="logout()">로그아웃</button>
+    </div>
+  </nav>
+
+  <!-- 콘텐츠 -->
+  <div class="wrapper">
+    <!-- 왼쪽 프로필 -->
+    <div class="profile-box" id="profileBox">
+      <!-- 자바스크립트로 사용자 정보 채워짐 -->
+    </div>
+
+    <!-- 메인 이미지 캐러셀 -->
+    <div class="main-image">
+  <div class="carousel">
+    <div class="slide-caption">오늘밤 우리집 beer..💦💦❤️❤️</div>
+    <img src="slide1.jpeg" class="slide active" />
+    <img src="slide2.jpeg" class="slide" />
+    <img src="slide3.jpeg" class="slide" />
+    <img src="slide4.jpeg" class="slide" />
+    <img src="slide5.jpeg" class="slide" />
+    <img src="slide6.jpeg" class="slide" />
+    <button class="prev" onclick="changeSlide(-1)">❮</button>
+    <button class="next" onclick="changeSlide(1)">❯</button>
+  </div>
+  <div style="margin-top: 20px; text-align: center; font-size: 18px; color: #444; background-color: #fff6f0; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+    💡 <strong>사이트 이용 방법:</strong><br>
+    1️⃣ 프로필 사진과 정보를 등록하세요.<br>
+    2️⃣ 매칭 탭에서 다른 사용자와 매칭을 시도해보세요.<br>
+    3️⃣ 채팅 탭에서 상대방과 실시간 대화를 시작할 수 있습니다.<br><br>
+    즐거운 과팅 되세요! 🧡
+  </div>
+</div>
+  </div>
+
+ <script>
+let currentUser = null;
+let currentSlide = 0;
+let slides = [];
+
+window.onload = function () {
+  // 🔹 프로필 렌더링
+  const userData = localStorage.getItem("loggedInUser");
+  const box = document.getElementById("profileBox");
+
+  if (!userData) {
+    alert("로그인이 필요합니다.");
+    location.href = "login.html";
+    return;
+  }
+
+  currentUser = JSON.parse(userData);
+
+  const savedImg = localStorage.getItem("profileImage_" + currentUser.id);
+  const imageHTML = savedImg
+    ? `<img src="${savedImg}" alt="프로필 사진">`
+    : `<div class="profile-image-placeholder">본인의 사진을<br>올려주세요</div>`;
+
+  box.innerHTML = `
+    ${imageHTML}
+    <input type="file" id="profileUpload" accept="image/*">
+    <div class="field"><span class="label">이름:</span> ${currentUser.name}</div>
+    <div class="field"><span class="label">학교:</span> ${currentUser.school}</div>
+    <div class="field"><span class="label">학과:</span> ${currentUser.major}</div>
+    <div class="field"><span class="label">나이:</span> ${currentUser.age}</div>
+  `;
+
+  const uploadInput = document.getElementById("profileUpload");
+  uploadInput.addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const imageData = e.target.result;
+      localStorage.setItem("profileImage_" + currentUser.id, imageData);
+      location.reload();
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // 🔹 슬라이드 초기화
+  slides = document.querySelectorAll('.slide');
+  showSlide(currentSlide);
+
+  document.querySelector('.prev').onclick = () => changeSlide(-1);
+  document.querySelector('.next').onclick = () => changeSlide(1);
+  setInterval(() => changeSlide(1), 3000);
+};
+
+// ✅ 전역 함수로 빼줌!
+function showSlide(index) {
+  slides.forEach((slide, i) => {
+    slide.classList.toggle('active', i === index);
+  });
+}
+
+function changeSlide(step) {
+  currentSlide = (currentSlide + step + slides.length) % slides.length;
+  showSlide(currentSlide);
+}
+
+function logout() {
+  localStorage.removeItem("loggedInUser");
+  location.href = "http://localhost:3000/login.html";
+}
+</script>
+
+
+
+<!-- 하단 배너: 서비스 안내 -->
+<div class="bottom-banner" style="margin: 50px auto; max-width: 800px; text-align: center; background-color: #ffece2; padding: 30px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+  <h2 style="color: #d66b42;">💬 한성연애는 단순한 소개팅이 아닙니다.</h2>
+  <p style="font-size: 16px; line-height: 1.6;">
+    우리의 매칭 알고리즘은 단순한 랜덤이 아닌,<br>
+    <strong>당신의 성향과 희망 조건</strong>을 바탕으로 구성됩니다.<br>
+    진짜 대화를 원한다면, 지금 바로 매칭을 시도해보세요.
+  </p>
+</div>
+
+<!-- 유저 후기 -->
+<div class="review-box" style="margin: 30px auto; max-width: 800px; text-align: center;">
+  <h3 style="color: #333;">🧡 이용자 후기</h3>
+  <p>"이 사이트 덕분에 좋은 사람을 만났어요!" - hs_ai23</p>
+  <p>"과팅인데 생각보다 진지하고 깔끔해서 좋았어요!" - dongduk_psy</p>
+</div>
+
+<!-- 푸터 -->
+<footer style="margin-top: 50px; padding: 20px; text-align: center; color: #888; font-size: 14px;">
+  <p>© 2025 HANSUNG MATCH | 개발팀: 노인정 | 이메일: bill.min122@gmail.com</p>
+  <p><a href="#" style="color: #888; text-decoration: none;">이용약관</a> | <a href="#" style="color: #888; text-decoration: none;">개인정보처리방침</a></p>
+</footer>
+
+</body>
+</html>
